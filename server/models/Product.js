@@ -20,9 +20,7 @@ const CartSchema = new Schema({
         type:Number,
         required: true
     },
-    image: {
-        
-    }
+    image: [String] 
 });
 
 const Product = mongoose.model('Product', CartSchema);
