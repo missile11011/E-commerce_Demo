@@ -29,10 +29,14 @@ const typeDefs = gql`
     }
     type Query {
         products: [Product]
+        product(_id:String!): Product
     }
 
     type Mutation {
         addProduct(name: String!, description: String!, price: Float!, quantity: Int!, image: [String] ): Product
+        productStock(_id: String!, quantity: Int!): Product
+        updateProduct(_id: String!, name: String, description: String, price: Float, quantity: Int): Product
+        deleteProduct(_id: String!): Product
     }
 `
 
