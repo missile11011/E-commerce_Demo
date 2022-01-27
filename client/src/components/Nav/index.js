@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
-import { Navbar, Nav, Container, Form, Row, Button, Image, Col} from "react-bootstrap";
+import { Navbar, Nav, Container, Form, Row, Button, Image, Col, Dropdown} from "react-bootstrap";
+import { useQuery } from '@apollo/client';
+import { QUERY_USER } from "../../utils/queries";
+import Auth from "../../utils/auth";
 
 const NavigationBar = () => {
 	// set modal display state
@@ -13,6 +16,35 @@ const NavigationBar = () => {
 			</>
 			)
 		
+	}
+	const { loading, data } = useQuery(QUERY_USER);
+	const account = () => {
+		if (Auth.loggedIn()) {
+			let user;
+			if (data){
+				user = data.user
+				return (
+					<Dropdown class="p-3">
+						<Dropdown.Toggle class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+							{user.firstName}
+						</Dropdown.Toggle>
+						<Dropdown.Menu class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							<Dropdown.Item class="dropdown-item" href="#">Action</Dropdown.Item>
+							<Dropdown.Item class="dropdown-item" href="#">Another action</Dropdown.Item>
+							<Dropdown.Divider/>
+							<Dropdown.Item class="dropdown-item" href="#">Logout</Dropdown.Item>
+						</Dropdown.Menu>
+					</Dropdown>
+				)
+			}
+			
+		} else {
+			return (
+				<Link to="/login">
+					<button class=" m-3 inline btn btn-primary">Login</button>
+				</Link>
+			)
+		}
 	}
 	return (
 		<>
@@ -28,7 +60,7 @@ const NavigationBar = () => {
 							</Form.Group>
 							<button class="px-3 m-2 btn btn-outline-success" variant="outline-success" type="submit">Search</button>
 						</Form>
-						<button inline class="m-3 btn btn-primary" variant="primary">Login</button>
+						{account()}
 						{shopingcart()}
 					</div>
 				</Container>

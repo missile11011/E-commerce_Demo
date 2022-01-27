@@ -11,12 +11,12 @@ const resolvers = {
         product: async(parent, args)=>{
             return await Product.findById(args)
         },
-        user: async(user, args, context)=>{
+        user: async(parent, args, context)=>{
             if (context.user) {
-            const user = await User.findById(context.user._id)
+                const user = await User.findById(context.user._id)
 
-            return user;
-        }
+                return user;
+            }
         throw new AuthenticationError('Not logged in');
         }
     },
