@@ -6,6 +6,7 @@ import Home from "./pages/Home.js"
 import Login from "./pages/Login.js"
 import Signup from "./pages/Signup.js"
 import Footer from "./components/Footer"
+import Account from "./pages/Account.js"
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import {
   ApolloClient,
@@ -43,6 +44,7 @@ function App() {
           <Route exact path='/' component={Home} />
           <Route exact path="/login" component={Login}/>
           <Route exact path='/signup' component={Signup}/>
+          <Route exact path='/account' component={Account}/>
         </Switch>
         <Footer/>
       </Router>

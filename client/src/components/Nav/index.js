@@ -24,15 +24,18 @@ const NavigationBar = () => {
 			if (data){
 				user = data.user
 				return (
-					<Dropdown class="p-3">
-						<Dropdown.Toggle class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-							{user.firstName}
+					<Dropdown className="m-3">
+						<Dropdown.Toggle variant="primary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+							Hello, {user.firstName}
 						</Dropdown.Toggle>
 						<Dropdown.Menu class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-							<Dropdown.Item class="dropdown-item" href="#">Action</Dropdown.Item>
-							<Dropdown.Item class="dropdown-item" href="#">Another action</Dropdown.Item>
+							<Link to="/account">
+								<a class="dropdown-item">Account</a>
+							</Link>
+							
+							<Dropdown.Item class="dropdown-item" href="#">Order History</Dropdown.Item>
 							<Dropdown.Divider/>
-							<Dropdown.Item class="dropdown-item" href="#">Logout</Dropdown.Item>
+							<Dropdown.Item class="dropdown-item" onClick={()=> Auth.logout()}>Logout</Dropdown.Item>
 						</Dropdown.Menu>
 					</Dropdown>
 				)
