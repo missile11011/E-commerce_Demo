@@ -21,3 +21,15 @@ export const QUERY_USER = gql`
 		}
 	}
 `;
+export const QUERY_PRODUCTS = gql`
+	{
+		products{
+			_id
+			name
+			description
+			price
+			quantity
+			image
+		}
+	}
+`;
