@@ -11,13 +11,14 @@ const ProductItem = (item) => {
     return(
         <div class="">
             <Link to={`/item/${_id}`}>
-                <div class="text-dark text-center">
-                    <img class="img-fluid" src={image}>
-                    </img>
-                    <p class="font-weight-bold">
+                <div class="text-dark text-center item-container mb-5">
+                    <div class="item-image-container">
+                        <img class="img-fluid item-image p-3" src={image}/>
+                    </div>
+                    <p class="font-weight-bold item-title align-text-bottom overflow-hidden">
                         {name}
                     </p>
-                    <span>
+                    <span class="item-price">
                         ${price}
                     </span>
                 </div>

@@ -4,15 +4,17 @@ import { Navbar, Nav, Container, Form, Row, Button, Image, Col, Dropdown} from "
 import { useQuery } from '@apollo/client';
 import { QUERY_USER } from "../../utils/queries";
 import Auth from "../../utils/auth";
+import "./index.css";
 
 const NavigationBar = () => {
 	// set modal display state
 	const shopingcart = () => {
 		return (
-			<> <div class="row align-items-center px-2" style={{ columns: "50px"}}>
-					<Image src={process.env.PUBLIC_URL + '/images/shopping-cart.png'} style={{ maxHeight: '50px', position: "relative", top: "0px" }}/>
-					<p class="text-white text-center" style={{ position: "relative", bottom: "0px", right: "30px"}}>0</p>
-				</div>	
+			<> 
+				<a class="row align-items-center px-2 cart-a" href="#" onClick={console.log("test")}>
+					<img class="cart-img" src={process.env.PUBLIC_URL + '/images/shopping-cart.png'}  onClick={console.log("test")}/>
+					<p class="text-white text-center cart-items">0</p>
+				</a>	
 			</>
 			)
 		
@@ -51,7 +53,7 @@ const NavigationBar = () => {
 	}
 	return (
 		<>
-			<Navbar bg="dark" variant="dark" expand="lg">
+			<Navbar bg="dark" variant="dark" className="py-0" >
 				<Container fluid>
 					<Navbar.Brand as={Link} to="/">
 						Demo
