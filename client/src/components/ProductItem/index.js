@@ -15,12 +15,16 @@ const ProductItem = (item) => {
                     <div class="item-image-container">
                         <img class="img-fluid item-image p-3" src={image}/>
                     </div>
-                    <p class="font-weight-bold item-title align-text-bottom overflow-hidden">
+                    <p class="font-weight-bold item-title align-text-bottom overflow-hidden px-1">
                         {name}
                     </p>
                     <span class="item-price">
                         ${price}
                     </span>
+                    <br></br>
+                    <button class="btn btn-primary rounded-pill m-2">
+                        Add to Cart
+                    </button>
                 </div>
             </Link>
         </div>

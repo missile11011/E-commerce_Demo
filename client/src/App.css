@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+.description-text {
+  font-size: 1.2em;
+  padding-top: 10px;
+}
+.title-text {
+  font-size: 1.3em;
+  font-weight: bold;
+  padding-top: 40px;
+}
+.price-text {
+  font-size:1.5em
+}

@@ -17,6 +17,7 @@
 		"concurrently": "^5.1.0"
 	},
 	"dependencies": {
+		"my-app": "file:client",
 		"react-redux": "^7.2.5"
 	}
 }
