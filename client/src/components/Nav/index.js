@@ -1,25 +1,81 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
-import { Navbar, Nav, Container, Form, Row, Button, Image, Col, Dropdown} from "react-bootstrap";
+import { Navbar, Container, Form, Row, Dropdown} from "react-bootstrap";
 import { useQuery } from '@apollo/client';
+import { TOGGLE_CART } from '../../utils/actions';
+import { useSelector, useDispatch } from 'react-redux';
 import { QUERY_USER } from "../../utils/queries";
+import CartItem from "../CartItem"
 import Auth from "../../utils/auth";
 import "./index.css";
 
 const NavigationBar = () => {
 	// set modal display state
+	const dispatch = useDispatch();
+	const state = useSelector(state => state)
+	const { cart, cartOpen } = state
+	const { loading, data } = useQuery(QUERY_USER);
+
+	const toggleCart = () =>{
+		dispatch({
+			type: TOGGLE_CART})
+	}
+	const cartTotal = () => {
+		let total = 0;
+		cart.map((item) => {
+			total += item.price * item.purchaseQuantity
+		})
+		return total.toFixed(2)
+	}
+	const emptyCart =() => {
+		if (Object.keys(cart).length === 0){
+			return(<h1 class="text-center">Empty</h1>)
+		}
+	}
 	const shopingcart = () => {
-		return (
-			<> 
-				<a class="row align-items-center px-2 cart-a" href="#" onClick={console.log("test")}>
-					<img class="cart-img" src={process.env.PUBLIC_URL + '/images/shopping-cart.png'}  onClick={console.log("test")}/>
-					<p class="text-white text-center cart-items">0</p>
+		if (cartOpen) {
+			return(
+			<>
+				<a onClick={toggleCart}>
+					<i class="text-white bi bi-bag-x bag-icon" ></i>
 				</a>	
 			</>
 			)
+		}
+		return (
+			<> 
+				<a class="" href="#" onClick={toggleCart}>
+					<i class="bi bi-bag-fill bag-icon my-auto "></i>
+					<span class="text-dark text-center cart-items align-text-bottom">{cart.length}</span>
+				</a>	
+			</>
+			)
+	}
+	const cartItems = () => {
+		if (cartOpen) {	
+			return(
+				<div class="col-5 cart-menu bg-light p-3 rounded border">
+					<a class="row justify-content-end px-4 py-auto" onClick={toggleCart}>
+						<i class=" bi-x-circle-fill text-danger"></i>
+					</a>
+					
+					<div class="cart-list overflow-scroll col">
+						{cart.map((item) =>{
+							return(
+								<CartItem key={item.id} item={item}/>
+							)
+						})}
+						{emptyCart()}
+					</div>
+					<h2>Total: ${cartTotal()}</h2>
+					<button class="btn rounded-pill btn-primary">Checkout</button>
+				</div>
+			)
+		}
 		
 	}
-	const { loading, data } = useQuery(QUERY_USER);
+
+	
 	const account = () => {
 		if (Auth.loggedIn()) {
 			let user;
@@ -53,9 +109,9 @@ const NavigationBar = () => {
 	}
 	return (
 		<>
-			<Navbar bg="dark" variant="dark" className="py-0" >
+			<Navbar variant="light" className="py-0 bg-black" >
 				<Container fluid>
-					<Navbar.Brand as={Link} to="/">
+					<Navbar.Brand className="text-white" as={Link} to="/">
 						Demo
 					</Navbar.Brand>
 					<div class="row inline">
@@ -70,6 +126,7 @@ const NavigationBar = () => {
 					</div>
 				</Container>
 			</Navbar>
+			{cartItems()}
 		</>
 	);
 };

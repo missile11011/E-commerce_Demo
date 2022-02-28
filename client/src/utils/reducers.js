@@ -1,10 +1,12 @@
 import {useReducer} from "react";
-import { UPDATE_PRODUCTS, UPDATE_PRODUCT, UPDATE_AMOUNT } from "./actions";
+import { UPDATE_PRODUCTS, UPDATE_PRODUCT, UPDATE_AMOUNT, ADD_TO_CART, UPDATE_CART, TOGGLE_CART } from "./actions";
 
 const initialState = {
     products:[],
     product:[],
     amount:0,
+    cart:[],
+    cartOpen:false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -23,6 +25,26 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 amount: action.amount,
+            }
+        case ADD_TO_CART:
+            return{
+                ...state,
+                cart: [...state.cart, action.product] 
+            }
+        case UPDATE_CART:
+            return{
+                ...state,
+                cart: state.cart.map((product) => {
+                    if (action._id === product._id){
+                        product.purchaseQuantity = action.purchaseQuantity; 
+                    }
+                    return product; 
+                })
+            }
+        case TOGGLE_CART:
+            return{
+                ...state,
+                cartOpen: !state.cartOpen,
             }
     default:
         return state;
