@@ -8,6 +8,7 @@ import Signup from "./pages/Signup.js"
 import Footer from "./components/Footer"
 import Account from "./pages/Account"
 import Product from "./pages/Product"
+import Cart from "./pages/Cart";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import {
   ApolloClient,
@@ -49,6 +50,7 @@ function App() {
               <Route exact path='/signup' component={Signup}/>
               <Route exact path='/account' component={Account}/>
               <Route exact path='/item/:_id' component={Product}/>
+              <Route exact path="/cart" component={Cart} />
             </Switch>
           <Footer/>
         </StoreProvider>

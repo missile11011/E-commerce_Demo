@@ -68,7 +68,10 @@ const NavigationBar = () => {
 						{emptyCart()}
 					</div>
 					<h2>Total: ${cartTotal()}</h2>
-					<button class="btn rounded-pill btn-primary">Checkout</button>
+					
+					<Link to="/cart">
+						<button class="btn rounded-pill btn-primary">Checkout</button>
+					</Link>
 				</div>
 			)
 		}
