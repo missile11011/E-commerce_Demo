@@ -4,3 +4,4 @@ export const UPDATE_AMOUNT = "UPDATE_AMOUNT";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const UPDATE_CART = "UPDATE_CART";
 export const TOGGLE_CART = "TOGGLE_CART";
+export const QUERY_CHECKOUT = "QUERY_CHECKOUT"

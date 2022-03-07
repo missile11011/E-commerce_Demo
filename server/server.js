@@ -5,7 +5,7 @@ const { ApolloServer } = require('apollo-server-express');
 const db = require("./config/connection.js")
 const PORT = process.env.PORT || 3001;
 const app = express();
-
+const router = express.Router();
 const {authMiddleware} = require("./utils/auth")
 const { typeDefs, resolvers } = require('./schema');
 const server = new ApolloServer({
@@ -13,6 +13,9 @@ const server = new ApolloServer({
   resolvers,
   context: authMiddleware
 });
+require('dotenv').config({path: "../.env"});
+
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 server.applyMiddleware({ app });
 
@@ -32,6 +35,26 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
+app.post("/create-payment-intent", async (req, res) => {
+  try{
+    const {total} = req.body 
+    const paymentIntent = await stripe.paymentIntents.create({
+    amount: total,
+    currency: 'usd',
+    payment_method_types: ['card'],
+  });
+  res.send({clientSecret: paymentIntent.client_secret})
+  }
+  catch(e){
+    return res.status(400).send(e.message);
+  }
+  console.log("payment-intent route")
+});
+
+app.post("/config", (req,res) => {
+  console.log("config route")
+  res.send({stripeKey: process.env.STRIPE_SECRET_KEY})
+});
 
 db.once("open", ()=>{
   app.listen(PORT, () => {

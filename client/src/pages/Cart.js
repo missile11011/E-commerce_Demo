@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import CartItem from "../components/CartItem";
-
+import { Link } from "react-router-dom";
 const Cart = () => {
 	const state = useSelector((state) => state);
 	const { cart } = state;
@@ -18,7 +18,6 @@ const Cart = () => {
     const total = () => {
         const totalNum = parseFloat(shippingCost) + parseFloat(subTotal())
         return totalNum
-
     }
 	return (
 		<div class="container">
@@ -54,9 +53,11 @@ const Cart = () => {
                         <h5 class="">${total()}</h5>
                     </div>
                     <div class="row">
-                        <button class="btn btn-primary rounded-pill m-3 mx-auto">
-                            Checkout
-                        </button>
+                        <Link to="/checkout">
+                            <button class="btn btn-primary rounded-pill m-3 mx-auto">
+                                Checkout
+                            </button>
+                        </Link>
                     </div>
                     
 				</div>
