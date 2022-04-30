@@ -13,7 +13,6 @@ const server = new ApolloServer({
   resolvers,
   context: authMiddleware
 });
-require('dotenv').config({path: "../.env"});
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 

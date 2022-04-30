@@ -36,7 +36,7 @@ const resolvers = {
             return await Product.findOneAndDelete(args)
         },
         createUser: async(parent, {email, firstName, lastName, password}) => {
-            const user = await User.create({email, firstName, lastName, password, role: "User" })
+            const user = await User.create({email, firstName, lastName, password })
             const token = signToken(user)
             return {token, user}
         },

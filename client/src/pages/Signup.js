@@ -1,88 +1,146 @@
-import React, {useState} from 'react';
-import {Form,Button, Row, Col} from "react-bootstrap";
+import React, {useState} from "react";
+import {Form, Button, Row, Col} from "react-bootstrap";
 import {useMutation} from "@apollo/client";
 import Auth from "../utils/auth";
-import { CREATEUSER } from "../utils/mutations"
+import {CREATEUSER} from "../utils/mutations";
 
-const Signup = () =>{
-    const [formState, setFormState] = useState({email: "", password: "", firstName: "", lastName: ""})
-    const [createUser, {error}] = useMutation(CREATEUSER)
+const Signup = () => {
+	const [formState, setFormState] = useState({
+		email: "",
+		password: "",
+		firstName: "",
+		lastName: "",
+    validPassword: "",
+    confirmPassword: ""
+	});
+	const [createUser, {error}] = useMutation(CREATEUSER);
 
-    const handelSubmit = async (event)=> {
-        event.preventDefault();
-        if (formState.password === formState.confirmPassword) {
-            setFormState({...formState, validPassword:formState.password})
-            return console.log("Password match")
-        }
-        try {
-            const response = await createUser({
-                variables:{ email:formState.email, password:formState.validPassword, firstName: formState.firstName, lastName: formState.lastName}
-            });
-            const token = response.data.createUser.token;
-            Auth.login(token);
-        } catch (e){ 
-            console.log(e)
-        }
-    };
+	const handelSubmit = async (event) => {
+		event.preventDefault();
+		if (formState.password === formState.confirmPassword) {
+			setFormState({...formState, validPassword: formState.password});
+		}
+    else{
+      setFormState({...formState})
+    }
+		try {
+		const response = await createUser({
+			variables: {
+				email: formState.email,
+				password: formState.validPassword,
+				firstName: formState.firstName,
+				lastName: formState.lastName,
+			},
+		});
+		const token = response.data.createUser.token;
+		Auth.login(token);
+		} catch (e){
+      console.log(e)
+		}
+	};
 
-    const handelChange = async (event)=> { 
-        const {name, value} = event.target;
-        // console.log(name, value)
-        setFormState({...formState,[name]:value})
-    };
-    
-    return (
-        <div class="col-6 mx-auto py-4">
-            <div class="border bg-light rounded rounded-3 p-4">
-                <h1 class="text-center">Signup</h1>
-                <Form onSubmit={handelSubmit}>
-                    <Row>
-                        <Col>
-                            <Form.Group className="mb-3" controlId="firstName">
-                                <Form.Label>First name:</Form.Label>
-                                <Form.Control name ="firstName" type="firstName" placeholder="John" onChange={handelChange} />
-                            </Form.Group>
-                        </Col>
-                        <Col>
-                            <Form.Group className="mb-3" controlId="lastName">
-                                <Form.Label>Last name:</Form.Label>
-                                <Form.Control name ="lastName" type="lastName" placeholder="Doe" onChange={handelChange} />
-                            </Form.Group>
-                        </Col>
-                    </Row>
-                    
-                    <Form.Group className="mb-3" controlId="email">
-                        <Form.Label>Email address:</Form.Label>
-                        <Form.Control name ="email" type="email" placeholder="Enter email" onChange={handelChange} />
-                        <Form.Text className="text-muted">
-                        We'll never share your email with anyone else.
-                        </Form.Text>
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="password">
-                        <Form.Label>Password:</Form.Label>
-                        <Form.Control name="password" type="password" placeholder="Password" onChange={handelChange}/>
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="confirmPassword">
-                        <Form.Label>Confirm Password:</Form.Label>
-                        <Form.Control name="confirmPassword" type="confirmPassword" placeholder="Password" onChange={handelChange}/>
-                    </Form.Group>
-                    <div class="d-flex my-2 justify-content-center">
-                        <Button variant="primary" type="submit">
-                            Submit
-                        </Button>
-                    </div>
-                    {error ? (
-                        <div>
-                            <p class="">
-                                make sure all fields are required
-                            </p>
-                        </div>
-                    ): null}
-                </Form>
+	const handelChange = (event) => {
+		const {name, value} = event.target;
+		console.log(name, value)
+		setFormState({...formState, [name]: value});
+	};
+
+	return (
+		<div class="col-6 mx-auto py-4">
+			<div class="border bg-light rounded rounded-3 p-4">
+				<h1 class="text-center">Signup</h1>
+				<form onSubmit={handelSubmit}>
+          <div className="row">
+            <div class="col mb-3">
+              <label for="firstName" class="form-label">
+                First name
+              </label>
+              <input
+                type="firstName"
+                name="firstName"
+                class="form-control"
+                id="firstName"
+                placeholder="Mark"
+                required
+                onChange={handelChange}
+              />
             </div>
-        </div>
-    )
-}
+            <div class="col mb-3">
+              <label for="lastName" class="form-label">
+                Last name
+              </label>
+              <input
+                type="lastName"
+                name="lastName"
+                class="form-control"
+                id="lastName"
+                placeholder="Otto"
+                required
+                onChange={handelChange}
+              />
+            </div>
+          </div>
+					<div className="row">
+            <div class="col mb-3">
+              <label for="email" class="form-label">
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                class="form-control"
+                id="email"
+                required
+                onChange={handelChange}
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col mb-3">
+              <label for="password" className="form-label">
+                Password:
+              </label>
+              <input
+                type="password"
+                className="form-control"
+                id="password"
+                required
+                onChange={handelChange}
+                />
+
+
+            </div>
+          </div>
+					<div className="row">
+            <div className="col mb-3">
+              <label for="confirmPassword" className="form-label">
+                Confirm Password:
+              </label>
+              <input
+                type="password"
+                className="form-control"
+                id="confrimPassword"
+                required
+                onChange={handelChange}
+                />
+
+            </div>
+          </div>
+					
+					<div class="text-center">
+						<button class="btn btn-primary" type="submit">
+							Submit form
+						</button>
+					</div>
+					{error ? (
+						<div>
+							<p class="">make sure all fields are required</p>
+						</div>
+					) : null}
+				</form>
+			</div>
+		</div>
+	);
+};
 
 export default Signup;
-
