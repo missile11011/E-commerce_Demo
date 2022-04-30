@@ -3,7 +3,7 @@
 <div style="text-align: center;">homepage screenshot</div>
 
 ## About This Project
-This web application is a demonstration of an ecommerce store using the following technologies. It is uses MongoDB for the database, react for handling the client-side, ExpressJS and NodeJS for the backend, with Apollo and GraphQL for data query. Some API that I used where the Stripe API to handle payments and Fake Store API for product seed data.This application it a demostration
+This web application is a demonstration of an ecommerce store using the following technologies. It is uses MongoDB for the database, react for handling the client-side, ExpressJS and NodeJS for the backend, with Apollo and GraphQL for data query. Some API that I used where the Stripe API to handle payments and Fake Store API for product seed data.This application also has login capability using JWT to create and login. It also has a cart to add items to, and a checkout page using the Stripe API for payment processing.
 ### Built with:
 - [MongoDB](https://www.mongodb.com/)
 - [React](https://reactjs.org/)
