@@ -19,6 +19,7 @@
 	"dependencies": {
 		"dotenv": "^16.0.0",
 		"my-app": "file:client",
+		"node": "^16.14.0",
 		"react-redux": "^7.2.5"
 	}
 }
