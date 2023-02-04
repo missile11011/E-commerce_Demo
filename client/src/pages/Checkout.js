@@ -1,13 +1,9 @@
 import React, {useState, useEffect, Component} from "react";
-import {loadStripe} from "@stripe/stripe-js";
-import {Elements} from "@stripe/react-stripe-js";
 import {useSelector} from "react-redux";
-import CheckoutForm from "../components/CheckoutForm";
 import ShippingForm from "../components/ShippingForm";
 import Auth from "../utils/auth";
 
 export default function Checkout() {
-	const [clientSecret, setClientSecret] = useState("");
 	const [total, setTotal] = useState(0);
 	const [stage, setStage] = useState(1);
 	const state = useSelector((state) => state);
