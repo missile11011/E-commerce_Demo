@@ -17,6 +17,9 @@ const ProductSchema = new Schema({
         type:Number,
         required: true,
     },
+    priceid: {
+        type:String,
+    },
     quantity: {
         type:Number,
         required: true
